@@ -13,5 +13,11 @@
     "@feathersjs/express": "^4.5.11",
     "@feathersjs/feathers": "^4.5.11",
     "@feathersjs/socketio": "^4.5.11"
+  },
+  "engines": {
+     "node": "14.18"
+  },
+  "scripts": {
+     "start": "node app.js"
   }
 }
