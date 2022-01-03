@@ -25,10 +25,43 @@ class MessageService {
 	}
 }
 
+const app = express(feathers());
 
-const app = feathers();
+// parse http json bodies
+app.use(express.json())
 
-app.use('messages', new MessageService())
+// parse url-encoded params
+app.use(express.urlencoded({ extended: true }))
+
+// host static files from the current folder
+app.use(express.static(__dirname))
+
+// Add  REST API support
+app.configure(express.rest())
+
+// configure socket.io real-time APIs
+app.configure(socketio())
+
+app.use('/messages', new MessageService())
+
+app.use(express.errorHandler())
+
+// add any real-time connection to everybody channel
+app.on('connection', connection =>
+	app.channel('everybody').join(connection)
+)
+
+app.publish(data => app.channel('everybody'))
+
+app.listen(3030).on('listening', () =>
+	console.log('Feathers server listening on localhost:3030')
+)
+
+app.service('messages').create({
+	text: 'hello world from the server'
+})
+
+/*
 
 app.service('messages').on('created', message => {
 	console.log('A new message has been created', message)
@@ -49,3 +82,5 @@ const main = async() => {
 }
 
 main()
+
+*/
