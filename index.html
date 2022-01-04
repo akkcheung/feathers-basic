@@ -21,7 +21,9 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 <script type="text/javascript">
 
-const socket = io('http://localhost:3030')
+const HOST = location.origin
+// const socket = io('http://localhost:3030')
+const socket = io(HOST)
 
 const app=feathers()
 
