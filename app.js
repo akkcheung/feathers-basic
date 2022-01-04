@@ -2,6 +2,8 @@ const feathers = require('@feathersjs/feathers')
 const express = require('@feathersjs/express')
 const socketio = require('@feathersjs/socketio')
 
+//heroku
+const PORT = process.env.PORT || 3030
 
 class MessageService {
 	constructor(){
@@ -53,7 +55,7 @@ app.on('connection', connection =>
 
 app.publish(data => app.channel('everybody'))
 
-app.listen(3030).on('listening', () =>
+app.listen(PORT).on('listening', () =>
 	console.log('Feathers server listening on localhost:3030')
 )
 
